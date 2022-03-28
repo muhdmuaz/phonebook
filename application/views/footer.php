@@ -1,53 +1,41 @@
+</div><!-- /container-fluid in header -->
+<script>
 
-<footer class="main-footer">
-	<div class="float-right d-none d-sm-block">
-		<b>Version</b> 3.2.0
-	</div>
-	<strong>Copyright &copy; 2022 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-</footer>
+	var base_url = '<?php echo site_url(); ?>';
+</script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="<?php echo base_url('assets/js/jquery-2.1.4.min.js') ?>"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-	<!-- Control sidebar content goes here -->
-</aside>
-<!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
-<!-- jQuery -->
-<script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
-<!-- Bootstrap 4 -->
-<script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('assets/dist/js/adminlte.min.js') ?>"></script>
 
-<!-- Page-Level Plugin Scripts -->
-<?php
-if (isset($pluginjs) && (count($pluginjs) > 0)) {
-	foreach( $pluginjs as $js) { ?>
-		<script src="<?php echo base_url($js); ?>"></script>
-	<?php	}
-}
-?>
 
-<!-- Page-Level Plugin CSS -->
-<?php
-if (isset($plugincss) && (count($plugincss) > 0)) {
-	foreach( $plugincss as $pj) { ?>
-		<link href="<?php echo base_url($pj); ?>" rel="stylesheet">
-	<?php	}
-}
-?>
+<script>
+	var userid = '<?php echo $userid; ?>';
+	$(document).ready(function() {
+		$("#mytable").DataTable({
+			"processing" : true,
+			"serverSide" : true,
+			"order" : [],
+			"ajax" : {
+				"url" : base_url + "/phonebook/phonebook_json/" + userid ,
+				"type" : "POST"
+			},
+			"columns" : [
+				{ "data" : "id"},
+				{ "data" : "contact_name" },
+				{ "data" : "contact_number"},
+				{ "data" : "userid"},
+				{ "data" : "action"},
+			],
+		})
 
-<!-- Page-Level JS Scripts -->
-<?php
-if (isset($pagejs) && (count($pagejs) > 0)) {
-	foreach( $pagejs as $js) { ?>
-		<script src="<?php echo base_url($js); ?>"></script>
-
-	<?php	}
-}
-?>
+	})
+</script>
 
 </body>
 </html>
